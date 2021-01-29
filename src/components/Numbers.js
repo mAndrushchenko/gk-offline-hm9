@@ -59,12 +59,16 @@ const Box1 = styled.div.attrs(props => ({
 }))`
   z-index: 2;
   position: absolute;
+  left: -1px;
   text-align: center;
   width: 100px;
   height: 70px;
   font-size: 120px;
   overflow: hidden;
   color: white;
+  border-left: #949494 1px solid;
+  border-right: #949494 1px solid;
+  text-shadow: 0 -2px 0 #232323, 0 2px 3px;
   background-color: #232323;
   border-radius: 10px 10px 0 0;
   margin: 1px;
@@ -84,7 +88,7 @@ const Box2 = styled.div`
   border-radius: 10px;
   border: #949494 1px solid;
   box-shadow: 1px 1px 2px 3px rgba(0,0,0,1);
-
+  text-shadow: 0 -2px 0 #232323, 0 2px 3px;
 `
 
 const Box3 = styled.div.attrs(props => ({
@@ -104,6 +108,7 @@ const Box3 = styled.div.attrs(props => ({
   color: white;
   border-radius: 10px;
   border: #949494 1px solid;
+  text-shadow: 0 -2px 0 #232323, 0 2px 3px;
 
 `
 const Box4 = styled.div.attrs(props => ({
@@ -123,6 +128,6 @@ const Box4 = styled.div.attrs(props => ({
   background-color: #232323;
   border-radius: 10px;
   border: #949494 1px solid;
-
+  text-shadow: 0 -2px 0 #232323, 0 2px 3px;
 `
 
