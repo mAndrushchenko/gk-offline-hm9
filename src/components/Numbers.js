@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import './index.css';
+import '../css/index.css';
 import styled from 'styled-components';
 
  export default function Numbers ({number, maxNumber}) {

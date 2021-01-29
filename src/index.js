@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Timer from "./Timer";
-import bg from './bg.jpg'
+import './css/index.css';
+import Timer from "./components/Timer";
+import bg from './css/bg.jpg'
 
 ReactDOM.render(
   <div className="wrapper">

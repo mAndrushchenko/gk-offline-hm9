@@ -13,6 +13,7 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
+  user-select: none;
 }
 
 
@@ -24,18 +25,15 @@ html, body {
 }
 
 .switcher {
-  left: 0;
+  left: -20px;
   padding: 0;
-  display: inline-block;
-  text-align: center;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
   position: absolute;
   height: 200px;
   top: 300px;
+  width: 100%;
 }
-
-/*button {*/
-
-/*}*/
 
 .wrapper-numbers {
   margin-top: 20px;
@@ -53,7 +51,7 @@ html, body {
   position: absolute;
   top: 5%;
   left: 30px;
-  background-color: #b2b2b2;
+  background-color: #696969;
 }
 
 .clock {
@@ -117,30 +115,55 @@ p {
   font-size: 120px;
 }
 
+
+.btn-wrapper {
+  margin-top: 10px;
+  position: relative;
+  top: 30%;
+  left: calc(50% - 20px);
+  width: 160px;
+  height: 30px;
+  background-color: #404040;
+  border-radius: 10px;
+  border: #111111 2px solid;
+}
+
+
 .btn {
   font-weight: bold;
-  margin: 25px 50px;
   width: 160px;
   height: 40px;
-  padding: 5px;
-  font-size: 1rem;
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: 20px;
+  background-color: #696969;
+  color: #b2b2b2;
+  text-shadow: 0 -2px 0 #232323, 0 1px 3px;
+  font-family: Helvetica, Arial, Sans-Serif;
+  text-decoration: none;
+  border-radius: 10px;
   cursor: pointer;
-  border-radius: 5px;
-  background-color: #787e7e;
-
-  user-select: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: #b2b2b2 1px solid;
+  box-shadow: #b2b2b2 0 1px 1px ;
+  transition: top 0.3s;
+  outline: none;
 }
 
 .btn:active {
-  border: none;
+  top: -10px;
+}
+.btn-select:focus {
+  color: #fff;
+}
+.switch-timezone:active {
+  color: #fff;
+}
 
-  color: white;
-  background-color: #007bff;
-}
-.btn:after {
-  color: white;
-  background-color: #007bff;
-}
+
 
 .line {
   width: 100px;
