@@ -1,70 +1,53 @@
-import React, {useState, useEffect} from 'react';
-import '../css/index.css';
-import styled from 'styled-components'
-import Numbers from "./Numbers";
-import Switcher from "./Switcher";
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { timeZones } from "../services/time-zones"
+import { newDate } from '../services/newDate'
+import Switcher from "./Switcher"
+import Numbers from "./Numbers"
+import '../css/index.css'
 
-export default function Timer () {
-    const [timeZone, setTimeZone] = useState(0);
-    const [timeFrame, setTimeFrame] = useState(24);
+const Timer = () => {
+    const { KIEV, NY, LONDON, MOSCOW, TOKYO, SWITCHER } = timeZones
+    const [timeZone, setTimeZone] = useState(KIEV)
+    const [timeFrame, setTimeFrame] = useState(12)
 
-    const switchTimeZone = (zone, frame) => {
-        if (zone === 'Kiev') return setTimeZone(0);
-        if (zone === 'NYC') return setTimeZone(-7);
-        if (zone === 'London') return setTimeZone(-2);
-        if (zone === 'Tokyo') return setTimeZone(7);
-        if (zone === 'Moscow') return setTimeZone(1);
-        if (zone === '12|24') return setTimeFrame(frame);
-        return setTimeZone(0);
-    };
-
-    const newDate = () => {
-        const date = new Date();
-        let hours = date.getHours() < 10 ? '0' + date.getHours() : date.getHours() + '';
-        hours = hours - 0 + timeZone;
-
-        if (timeFrame === 12) {
-            if (hours > 12) hours = hours - timeFrame;
+    const switchTimeZone = useCallback((zone) => {
+        if (zone === KIEV) return setTimeZone(zone)
+        if (zone === NY) return setTimeZone(zone)
+        if (zone === LONDON) return setTimeZone(zone)
+        if (zone === MOSCOW) return setTimeZone(zone)
+        if (zone === TOKYO) return setTimeZone(zone)
+        if (zone === SWITCHER) {
+            return timeFrame === 24 ? setTimeFrame(12) : setTimeFrame(24)
         }
+        return setTimeZone(KIEV)
+    }, [timeFrame, KIEV, NY, LONDON, MOSCOW, TOKYO, SWITCHER])
 
-        hours < 10 ? hours = '0' + hours : hours = hours + '';
-
-        const minutes = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes() + '';
-        const seconds = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds() + '';
-        return [
-            Number(hours[0]),
-            Number(hours[1]),
-            Number(minutes[0]),
-            Number(minutes[1]),
-            Number(seconds[0]),
-            Number(seconds[1]) ]
-    };
-
-    const firstTime = newDate()
+    const firstTime = useMemo(() => newDate(timeZone, timeFrame), [timeZone, timeFrame])
     const [dozenHour, setDozenHour] = useState(firstTime[0])
     const [hour, setHour] = useState(firstTime[1])
     const [dozenMinute, setDozenMinute] = useState(firstTime[2])
     const [minute, setMinute] = useState(firstTime[3])
-    const [dozenSecond, setDozenSecond] = useState(firstTime[4]);
+    const [dozenSecond, setDozenSecond] = useState(firstTime[4])
     const [second, setSecond] = useState(firstTime[5])
 
-    const renderTime = () => {
-        const newTime = newDate()
+    const renderTime = useCallback(() => {
+        const newTime = newDate(timeZone, timeFrame)
         setDozenHour(newTime[0])
         setHour(newTime[1])
         setDozenMinute(newTime[2])
         setMinute(newTime[3])
         setDozenSecond(newTime[4])
         setSecond(newTime[5])
-    }
+    }, [timeZone, timeFrame])
 
-    useEffect(renderTime, [timeZone, timeFrame])
+    useEffect(renderTime, [renderTime])
 
-    useEffect(()=>{
-        const timer =  setInterval(renderTime, 1000);
-        return ()=>{clearInterval(timer)};
-
-    }, [dozenHour, hour,  dozenMinute, minute, dozenSecond, second])
+    useEffect(() => {
+        const timer = setInterval(renderTime, 1000)
+        return () => {
+            clearInterval(timer)
+        }
+    }, [renderTime])
 
     return (
         <div className="clock">
@@ -84,7 +67,9 @@ export default function Timer () {
                     <Numbers number={second} maxNumber={9}/>
                 </div>
             </div>
-            <Switcher onClick={switchTimeZone}/>
+            <Switcher onClick={switchTimeZone} timeFrame={timeFrame}/>
         </div>
     )
-};
+}
+
+export default Timer

@@ -1,13 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './css/index.css';
-import Timer from "./components/Timer";
-import bg from './css/bg.jpg'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from "./App"
 
 ReactDOM.render(
-  <div className="wrapper">
-      <img src={bg} alt="" className='back-ground'/>
-    <Timer className=""/>
-  </div>,
-  document.getElementById('root')
-);
+    <App/>,
+    document.getElementById('root')
+)
